@@ -7,6 +7,10 @@
 <title>Sistema JSP</title>
 </head>
 <body>
-
+	<form action="ServletLogin" method="post">
+		<input name="nome"></input>
+		<input name="idade"></input>
+		<input type="submit" value="Enviar"></input>
+	</form>
 </body>
 </html>
