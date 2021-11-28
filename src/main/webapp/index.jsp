@@ -7,10 +7,25 @@
 <title>Sistema JSP</title>
 </head>
 <body>
+
+	<h1>Sistema com jSP</h1>
 	<form action="ServletLogin" method="post">
-		<input name="nome"></input>
-		<input name="idade"></input>
-		<input type="submit" value="Enviar"></input>
+		<table>
+			<tr>
+				<td><label>Login</label></td>
+				<td><input name="login" type="text"></input></td>
+			</tr>
+			<tr>
+				<td><label>Login</label></td>
+				<td><input name="senha" type="password"></input></td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Enviar"></input></input></td>
+			</tr>
+		</table>
 	</form>
+	<h3>${msg}</h3>
 </body>
 </html>
