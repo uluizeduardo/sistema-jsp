@@ -1,7 +1,10 @@
 package filter;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
+import connection.SingleConnectionBanco;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -13,42 +16,63 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/principal/*"}) // It intercepts all requests that come from the project or mapping
+@WebFilter(urlPatterns = { "/principal/*" }) // It intercepts all requests that come from the project or mapping
 public class FilterAutenticacao implements Filter {
+
+	private static Connection connection;
 
 	public FilterAutenticacao() {
 	}
 
 	// Terminates processes when server is stopped
 	public void destroy() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Intercepts requests and gives responses in the system
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-		HttpServletRequest requestServletLogin = (HttpServletRequest) request;
-		HttpSession session = requestServletLogin.getSession();
+		try {
 
-		String usuarioLogado = (String) session.getAttribute("usuario");
+			HttpServletRequest requestServletLogin = (HttpServletRequest) request;
+			HttpSession session = requestServletLogin.getSession();
 
-		String urlParaAutenticar = requestServletLogin.getServletPath(); // URL being accessed
+			String usuarioLogado = (String) session.getAttribute("usuario");
 
-		// Validate if you are currently logged in or redirect to login screen
-		if (usuarioLogado == null && !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) { // not logged in
+			String urlParaAutenticar = requestServletLogin.getServletPath(); // URL being accessed
 
-			RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaAutenticar);
-			request.setAttribute("msg", "Por favor realize o login");
-			redireciona.forward(request, response);
-			return; // Stops execution and redirects to login
-			
-		} else {
-			chain.doFilter(request, response);
+			// Validate if you are currently logged in or redirect to login screen
+			if (usuarioLogado == null && !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) { // not logged
+																											// in
+
+				RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaAutenticar);
+				request.setAttribute("msg", "Por favor realize o login");
+				redireciona.forward(request, response);
+				return; // Stops execution and redirects to login
+
+			} else {
+				chain.doFilter(request, response);
+			}
+			connection.commit(); // Deu tudo certo da um commit no banco de dados
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
 	// Starts processes or resources when the server uploads the project
 	public void init(FilterConfig fConfig) throws ServletException {
-
+		connection = SingleConnectionBanco.getConnection();
 	}
 
 }
