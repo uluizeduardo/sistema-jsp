@@ -1,0 +1,33 @@
+-- Sql de criação do banco 
+
+CREATE DATABASE "sistema-jsp"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Brazil.1252'
+       LC_CTYPE = 'Portuguese_Brazil.1252'
+       CONNECTION LIMIT = -1;
+       
+       
+
+-- Sql de criação das tabela
+
+CREATE TABLE public.model_login
+(
+  login character varying(200),
+  senha character varying(200),
+  CONSTRAINT login_unique UNIQUE (login)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.model_login
+  OWNER TO postgres;
+
+  
+ 
+ -- Sql para inserir dados na tabela
+  
+  INSERT INTO public.model_login(
+            login, senha)
+    VALUES ('admin', 'admin');
