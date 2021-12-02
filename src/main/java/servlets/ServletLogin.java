@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 
+import dao.DAOLoginRpository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,10 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
-@WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"}) // URL mapping coming from the screen
+@WebServlet(urlPatterns = { "/principal/ServletLogin", "/ServletLogin" }) // URL mapping coming from the screen
 public class ServletLogin extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	private DAOLoginRpository daoLoginRpository = new DAOLoginRpository();
 
 	public ServletLogin() {
 
@@ -33,34 +36,41 @@ public class ServletLogin extends HttpServlet {
 		String senha = request.getParameter("senha");
 		String url = request.getParameter("url");
 
-		if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
+		try {
 
-			ModelLogin modelLogin = new ModelLogin();
+			if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 
-			modelLogin.setLogin(login);
-			modelLogin.setSenha(senha);
+				ModelLogin modelLogin = new ModelLogin();
 
-			// Simulando o login no sistema
-			if (modelLogin.getLogin().equalsIgnoreCase("admin") && modelLogin.getSenha().equalsIgnoreCase("admin")) {
+				modelLogin.setLogin(login);
+				modelLogin.setSenha(senha);
 
-				request.getSession().setAttribute("usuario", modelLogin.getLogin());
+				// Simulating system login
+				if (daoLoginRpository.validarAutenticacao(modelLogin)) {
 
-				if (url == null || url.equals("null")) {
-					url = "principal/principal.jsp";
+					request.getSession().setAttribute("usuario", modelLogin.getLogin());
+
+					if (url == null || url.equals("null")) {
+						url = "principal/principal.jsp";
+					}
+					RequestDispatcher redirecionar = request.getRequestDispatcher(url);
+					redirecionar.forward(request, response);
+
+				} else {
+					RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
+					request.setAttribute("msg", "Informe Login e Senha Correto!");
+					redirecionar.forward(request, response);
 				}
-				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
-				redirecionar.forward(request, response);
 
 			} else {
-				RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
-				request.setAttribute("msg", "Informe Login e Senha Correto!");
+				RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
+				request.setAttribute("msg", "Informe login e senha correto!");
 				redirecionar.forward(request, response);
 			}
 
-		} else {
-			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("msg", "Informe login e senha correto!");
-			redirecionar.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 	}
 }
