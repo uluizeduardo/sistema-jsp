@@ -47,8 +47,7 @@ public class FilterAutenticacao implements Filter {
 			String urlParaAutenticar = requestServletLogin.getServletPath(); // URL being accessed
 
 			// Validate if you are currently logged in or redirect to login screen
-			if (usuarioLogado == null && !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) { // not logged
-																											// in
+			if (usuarioLogado == null && !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) { // not logged in
 
 				RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaAutenticar);
 				request.setAttribute("msg", "Por favor realize o login");
@@ -62,6 +61,9 @@ public class FilterAutenticacao implements Filter {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			RequestDispatcher redireciona = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redireciona.forward(request, response);
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
