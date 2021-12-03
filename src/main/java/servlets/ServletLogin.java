@@ -40,7 +40,7 @@ public class ServletLogin extends HttpServlet {
 
 			if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 
-				ModelLogin modelLogin = null; //new ModelLogin(); Triggered error to test the error screen
+				ModelLogin modelLogin = new ModelLogin(); 
 
 				modelLogin.setLogin(login);
 				modelLogin.setSenha(senha);
