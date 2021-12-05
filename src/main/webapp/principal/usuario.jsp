@@ -32,7 +32,7 @@
                                     <!-- Page-body start -->
                                     <div class="page-body">
                                         <div class="row">
-                                           <h1>Conteúdo page base das páginas do sistema</h1>
+                                           <h1>Cadastro De Usuário</h1>
                                    		</div>
                                     <!-- Page-body end -->
                                 </div>
