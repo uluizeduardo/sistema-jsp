@@ -38,7 +38,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Cad. Usuário</h4>
 
-														<form class="form-material">
+														<form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post">
 															<div class="form-group form-default">
 																<input type="text" name="id" id="id" class="form-control" readonly="readonly">
 																<span class="form-bar"></span>
@@ -57,14 +57,20 @@
 																 <label class="float-label">E-mail:</label>
 															</div>
 															<div class="form-group form-default">
-																<input type="password" name="senha" id="senha" class="form-control" required="required" autocomplete="off">
+																<input type="password" name="login" id="login" class="form-control" required="required" autocomplete="off">
 																<span class="form-bar"></span>
-																<label class="float-label">Senha</label>
+																<label class="float-label">Login:</label>
+															</div>
+															<div class="form-group form-default">
+																<input type="text" name="senha" id="senha" class="form-control" required="required" autocomplete="off">
+																<span class="form-bar"></span>
+																<label class="float-label">Senha:</label>
 															</div>
 
 															<button class="btn btn-primary waves-effect waves-light">Novo</button>
 															<button class="btn btn-success waves-effect waves-light">Salvar</button>
 															<button class="btn btn-info waves-effect waves-light">Excluir</button>
+														</form>
 													</div>
 												</div>
 											</div>
