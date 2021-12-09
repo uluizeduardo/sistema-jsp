@@ -57,7 +57,7 @@ public class FilterAutenticacao implements Filter {
 			} else {
 				chain.doFilter(request, response);
 			}
-			connection.commit(); // Deu tudo certo da um commit no banco de dados
+			connection.commit(); // Everything went well with a database commit
 
 		} catch (Exception e) {
 			e.printStackTrace();
