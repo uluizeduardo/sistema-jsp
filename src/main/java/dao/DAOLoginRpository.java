@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import connection.SingleConnectionBanco;
 import model.ModelLogin;
@@ -17,7 +16,7 @@ public class DAOLoginRpository {
 	}
 
 	// Method to validate login
-	public boolean validarAutenticacao(ModelLogin modelLogin) throws SQLException {
+	public boolean validarAutenticacao(ModelLogin modelLogin) throws Exception {
 
 		String sql = "select * from model_login where upper(login) = upper(?) and upper(senha) = upper(?)";
 		PreparedStatement buscarnoBanco = connection.prepareStatement(sql);
