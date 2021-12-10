@@ -50,6 +50,11 @@ public class ServletUsuarioController extends HttpServlet {
 			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				msg = "Já existe usuário com o mesmo login, informe outro login";
 			}else {
+				if (modelLogin.idNovo()) {
+					msg = "Gravado com sucesso!";
+				}else {
+					msg = "Atualizado com sucesso!";
+				}
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
 
@@ -58,14 +63,6 @@ public class ServletUsuarioController extends HttpServlet {
 
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
-			/*
-			 * //- > Monta o redirecionamento RequestDispatcher redirecionar =
-			 * request.getRequestDispatcher("principal/usuario.jsp");
-			 * 
-			 * //- > Seta o atributo request.setAttribute("modelLogin", modelLogin);
-			 * 
-			 * //- > Comando para redirecionar redirecionar.forward(request, response);
-			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
