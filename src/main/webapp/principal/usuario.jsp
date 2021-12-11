@@ -72,13 +72,13 @@
 
 															<button type="button" class="btn btn-primary waves-effect waves-light" onclick="limparForm();">Novo</button>
 															<button type="submit" class="btn btn-success waves-effect waves-light">Salvar</button>
-															<button type="button" class="btn btn-info waves-effect waves-light" onclick="deletar();">Excluir</button>
+															<button type="button" class="btn btn-info waves-effect waves-light" onclick="deleteComAjax();">Excluir</button>
 														</form>
 													</div>
 												</div>
 											</div>
 										</div>
-										<span>${msg}</span>
+										<span id="msg">${msg}</span>
 									</div>
 									<!-- Page-body end -->
 								</div>

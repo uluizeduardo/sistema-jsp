@@ -16,3 +16,25 @@ function deletar() {
 	}
 
 }
+
+// Função Delete com ajax
+function deleteComAjax(){
+	
+	if(confirm('Deseja realmente excluir os dados?')){
+		var urlAction = document.getElementById('formUser').action;
+		var idUser = document.getElementById('id').value;
+		
+		$.ajax({
+			method: "get",
+			url: urlAction,
+			data: "id=" + idUser + '&acao=deletarajax',
+			success: function(response){
+				
+				limparForm();
+				document.getElementById('msg').textContent = response;
+			}
+		}).fail(function(xhr, status, errorThrown){
+			alert('Erro ao deletar usuário por id:' + xhr.responseText);
+		});
+	}
+}

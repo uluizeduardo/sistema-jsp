@@ -30,12 +30,25 @@ public class ServletUsuarioController extends HttpServlet {
 			String acao = request.getParameter("acao");
 
 			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				
 				String idUser = request.getParameter("id");
 				daoUsuarioRepository.deletarLogin(idUser);
+				
 				request.setAttribute("msg", "Excluído com sucesso!!! ");
+				// Return to same page
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+				
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
+				
+				String idUser = request.getParameter("id");
+				daoUsuarioRepository.deletarLogin(idUser);
+				
+				response.getWriter().write("Excluido com sucesso!");
+			}else {
+				// Return to same page
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
-			// Return to same page
-			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			
 			
 			
 		} catch (Exception e) {
@@ -48,7 +61,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 	}
 
-	// save and update
+	// Save and update
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
