@@ -15,23 +15,46 @@ import model.ModelLogin;
 public class ServletUsuarioController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
 
 	public ServletUsuarioController() {
 
 	}
 
+	// Consult and Delete
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		try {
+
+			String acao = request.getParameter("acao");
+
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				String idUser = request.getParameter("id");
+				daoUsuarioRepository.deletarLogin(idUser);
+				request.setAttribute("msg", "Excluído com sucesso!!! ");
+			}
+			// Return to same page
+			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
+
+		}
 
 	}
 
+	// save and update
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			
+
 			String msg = "Operação realizada com sucesso!";
-			
+
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
@@ -45,14 +68,14 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
-			
+
 			// Check if the login already exists
-			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				msg = "Já existe usuário com o mesmo login, informe outro login";
-			}else {
+			} else {
 				if (modelLogin.idNovo()) {
 					msg = "Gravado com sucesso!";
-				}else {
+				} else {
 					msg = "Atualizado com sucesso!";
 				}
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);

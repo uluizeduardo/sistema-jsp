@@ -39,6 +39,9 @@
 														<h4 class="sub-title">Cad. Usuário</h4>
 
 														<form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
+															
+															<input type="hidden" name="acao" id="acao" value="">
+															
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="id" id="id" class="form-control" readonly="readonly" value="${modelLogin.id}">
 																<span class="form-bar"></span>
@@ -67,9 +70,9 @@
 																<label class="float-label">Senha:</label>
 															</div>
 
-															<button class="btn btn-primary waves-effect waves-light" onclick="limparForm();">Novo</button>
-															<button class="btn btn-success waves-effect waves-light">Salvar</button>
-															<button class="btn btn-info waves-effect waves-light">Excluir</button>
+															<button type="button" class="btn btn-primary waves-effect waves-light" onclick="limparForm();">Novo</button>
+															<button type="submit" class="btn btn-success waves-effect waves-light">Salvar</button>
+															<button type="button" class="btn btn-info waves-effect waves-light" onclick="deletar();">Excluir</button>
 														</form>
 													</div>
 												</div>
