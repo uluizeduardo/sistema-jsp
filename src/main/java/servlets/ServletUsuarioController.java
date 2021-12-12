@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import dao.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
@@ -44,7 +45,12 @@ public class ServletUsuarioController extends HttpServlet {
 				daoUsuarioRepository.deletarLogin(idUser);
 				
 				response.getWriter().write("Excluido com sucesso!");
-			}else {
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+				
+				String nomeBusca = request.getParameter("nomeBusca");
+				System.out.println(nomeBusca);
+			}
+			else {
 				// Return to same page
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
