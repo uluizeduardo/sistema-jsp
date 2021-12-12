@@ -17,7 +17,7 @@ function deletar() {
 
 }
 
-// Função Delete com ajax
+// Delete function with ajax
 function deleteComAjax(){
 	
 	if(confirm('Deseja realmente excluir os dados?')){
@@ -36,5 +36,15 @@ function deleteComAjax(){
 		}).fail(function(xhr, status, errorThrown){
 			alert('Erro ao deletar usuário por id:' + xhr.responseText);
 		});
+	}
+}
+
+// Function to search for user in the bank
+function buscarUsuario(){
+	
+	var nomeBusca = document.getElementById('nomeBusca').value;
+	
+	if (nomeBusca != null && nomeBusca != '' &&  nomeBusca.trim() != ''){ // Validating that it must have value to search the bank
+		alert(nomeBusca);
 	}
 }
