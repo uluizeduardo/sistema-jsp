@@ -18,46 +18,56 @@ function deletar() {
 }
 
 // Delete function with ajax
-function deleteComAjax(){
-	
-	if(confirm('Deseja realmente excluir os dados?')){
+function deleteComAjax() {
+
+	if (confirm('Deseja realmente excluir os dados?')) {
 		var urlAction = document.getElementById('formUser').action;
 		var idUser = document.getElementById('id').value;
-		
+
 		$.ajax({
 			method: "get",
 			url: urlAction,
 			data: "id=" + idUser + '&acao=deletarajax',
-			success: function(response){
-				
+			success: function(response) {
+
 				limparForm();
 				document.getElementById('msg').textContent = response;
 			}
-		}).fail(function(xhr, status, errorThrown){
+		}).fail(function(xhr, status, errorThrown) {
 			alert('Erro ao deletar usuário por id:' + xhr.responseText);
 		});
 	}
 }
 
 // Function to search for user in the bank
-function buscarUsuario(){
-	
+function buscarUsuario() {
+
 	var nomeBusca = document.getElementById('nomeBusca').value;
-	
-	if (nomeBusca != null && nomeBusca != '' &&  nomeBusca.trim() != ''){ // Validating that it must have value to search the bank
-		
+
+	if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') { // Validating that it must have value to search the bank
+
 		var urlAction = document.getElementById('formUser').action;
-		
+
 		$.ajax({
 			method: "get",
 			url: urlAction,
 			data: "nomeBusca=" + nomeBusca + '&acao=buscarUserAjax',
-			success: function(response){
-				
+			success: function(response) {
+
+				var json = JSON.parse(response);
+
+				$('#tabelaResultados > tbody > tr').remove();
+
+				for (var p = 0; p < json.length; p++) {
+					$('#tabelaResultados > tbody').append('<tr> <td>'+json[p].id +'</td> <td>'+json[p].nome+'</td><td><button type="button" class="btn btn-info">Info</button></td></tr>')
+				}
+
+				document.getElementById('totalresultados').textContent = 'Resultados' + json.length;
+
 			}
-		}).fail(function(xhr, status, errorThrown){
+		}).fail(function(xhr, status, errorThrown) {
 			alert('Erro ao buscar usuário por nome:' + xhr.responseText);
 		});
-		
+
 	}
 }

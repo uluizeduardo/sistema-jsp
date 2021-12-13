@@ -115,8 +115,8 @@
 			  </div>
 			</div>
 	      </div>
-	      
-	      <table class="table">
+	      <div style=" height: 300px; overflow: scroll;">
+	      	<table class="table" id="tabelaResultados">
 			  <thead>
 			    <tr>
 			      <th scope="col">Id</th>
@@ -128,7 +128,8 @@
 			    
 			  </tbody>
 			</table>
-	      
+	      </div>
+	      <span id="totalResultados"></span>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 	      </div>
