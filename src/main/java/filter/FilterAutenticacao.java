@@ -16,7 +16,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/principal/*" }) // It intercepts all requests that come from the project or mapping
+@WebFilter(urlPatterns = {"/principal/*"}) // It intercepts all requests that come from the project or mapping
 public class FilterAutenticacao implements Filter {
 
 	private static Connection connection;

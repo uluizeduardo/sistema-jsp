@@ -19,7 +19,7 @@
 		<h4>Bem vindo ao Sistema JSP</h4>
 	</div>
 	<form action="<%= request.getContextPath() %>/ServletLogin" method="post" class="row g-3 needs-validation" novalidate>
-		<input type="hidden" value="<%=request.getParameter("url")%>" name="url">
+		<input type="hidden" value="<%= request.getParameter("url") %>" name="url">
 		<div class="mb-3">
 			<label class="form-label" for="login">Login</label>
 			<input	class="form-control" id="login" name="login" type="text" required>
