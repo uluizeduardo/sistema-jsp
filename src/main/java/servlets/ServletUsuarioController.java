@@ -33,49 +33,65 @@ public class ServletUsuarioController extends HttpServlet {
 			String acao = request.getParameter("acao");
 
 			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
-				
+
 				String idUser = request.getParameter("id");
 				daoUsuarioRepository.deletarLogin(idUser);
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				request.setAttribute("modelLogins", modelLogins);
 				
 				request.setAttribute("msg", "Excluído com sucesso!!! ");
 				// Return to same page
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-				
-			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
-				
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarajax")) {
+
 				String idUser = request.getParameter("id");
 				daoUsuarioRepository.deletarLogin(idUser);
-				
+
 				response.getWriter().write("Excluido com sucesso!");
-			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserajax")) {
 				
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserajax")) {
+
 				String nomeBusca = request.getParameter("nomeBusca");
-				
+
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
-				
+
 				ObjectMapper mapper = new ObjectMapper();
-				
+
 				String json = mapper.writeValueAsString(dadosJsonUser);
-				
+
 				response.getWriter().write(json);
-			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
 				
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
+
 				String id = request.getParameter("id");
-				
+
 				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioPorId(id);
 				
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				request.setAttribute("modelLogins", modelLogins);
+
 				request.setAttribute("msg", "Usuário em Edição!");
 				request.setAttribute("modelLogin", modelLogin);
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-	
-			}
-			else {
+
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+
+				request.setAttribute("msg", "Usuários Carregados");
+				request.setAttribute("modelLogins", modelLogins);
+				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+
+			} else {
 				// Return to same page
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				request.setAttribute("modelLogins", modelLogins);
+				
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
-			
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
@@ -87,7 +103,8 @@ public class ServletUsuarioController extends HttpServlet {
 	}
 
 	// Save and update
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 
@@ -119,6 +136,9 @@ public class ServletUsuarioController extends HttpServlet {
 				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
 			}
 
+			List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+			request.setAttribute("modelLogins", modelLogins);
+			
 			request.setAttribute("msg", msg);
 			request.setAttribute("modelLogin", modelLogin);
 
