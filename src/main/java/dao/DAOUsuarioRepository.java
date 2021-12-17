@@ -104,7 +104,7 @@ public class DAOUsuarioRepository {
 
 		ModelLogin modelLogin = new ModelLogin();
 
-		String sql = "select * from model_login where upper(login) = upper('" + login + "') and useradmin is false;";
+		String sql = "select * from model_login where upper(login) = upper('"+login+"') and useradmin is false;";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
