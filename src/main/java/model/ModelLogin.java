@@ -11,6 +11,7 @@ public class ModelLogin implements Serializable {
 	private String email;
 	private String login;
 	private String senha;
+	private boolean useradmin;
 	
 	// Method to check if it is a new id record
 	public boolean idNovo(){
@@ -62,5 +63,15 @@ public class ModelLogin implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public boolean getUseradmin() {
+		return useradmin;
+	}
+
+	public void setUseradmin(boolean useradmin) {
+		this.useradmin = useradmin;
+	}
+	
+	
 
 }
