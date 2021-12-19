@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
 @WebServlet("/ServletUsuarioController")
-public class ServletUsuarioController extends HttpServlet {
+public class ServletUsuarioController extends ServletGenericUtil {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,8 @@ public class ServletUsuarioController extends HttpServlet {
 	}
 
 	// Consult and Delete
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 
@@ -37,9 +38,9 @@ public class ServletUsuarioController extends HttpServlet {
 				String idUser = request.getParameter("id");
 				daoUsuarioRepository.deletarLogin(idUser);
 
-				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios(super.getUsuarioLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-				
+
 				request.setAttribute("msg", "Excluído com sucesso!!! ");
 				// Return to same page
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
@@ -50,26 +51,26 @@ public class ServletUsuarioController extends HttpServlet {
 				daoUsuarioRepository.deletarLogin(idUser);
 
 				response.getWriter().write("Excluido com sucesso!");
-				
+
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserajax")) {
 
 				String nomeBusca = request.getParameter("nomeBusca");
 
-				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
+				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca, super.getUsuarioLogado(request));
 
 				ObjectMapper mapper = new ObjectMapper();
 
 				String json = mapper.writeValueAsString(dadosJsonUser);
 
 				response.getWriter().write(json);
-				
+
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
 
 				String id = request.getParameter("id");
 
-				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioPorId(id);
-				
-				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				ModelLogin modelLogin = daoUsuarioRepository.consultarUsuarioPorId(id, super.getUsuarioLogado(request));
+
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios(super.getUsuarioLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
 
 				request.setAttribute("msg", "Usuário em Edição!");
@@ -78,7 +79,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUser")) {
 
-				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios(super.getUsuarioLogado(request));
 
 				request.setAttribute("msg", "Usuários Carregados");
 				request.setAttribute("modelLogins", modelLogins);
@@ -86,9 +87,9 @@ public class ServletUsuarioController extends HttpServlet {
 
 			} else {
 				// Return to same page
-				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+				List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios(super.getUsuarioLogado(request));
 				request.setAttribute("modelLogins", modelLogins);
-				
+
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 			}
 
@@ -133,12 +134,12 @@ public class ServletUsuarioController extends HttpServlet {
 				} else {
 					msg = "Atualizado com sucesso!";
 				}
-				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin);
+				modelLogin = daoUsuarioRepository.gravarUsuario(modelLogin, super.getUsuarioLogado(request));
 			}
 
-			List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios();
+			List<ModelLogin> modelLogins = daoUsuarioRepository.listarUsuarios(super.getUsuarioLogado(request));
 			request.setAttribute("modelLogins", modelLogins);
-			
+
 			request.setAttribute("msg", msg);
 			request.setAttribute("modelLogin", modelLogin);
 
