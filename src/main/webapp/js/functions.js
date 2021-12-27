@@ -78,3 +78,20 @@ function verEditar(id){
 	
 	window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
 }
+
+function visualizarImg(fotoembase64, fileFoto){
+	
+	var preview = document.getElementById(fotoembase64);
+	var fileUser = document.getElementById(fileFoto).files[0];
+	var reader = new FileReader();
+	
+	reader.onloadend = function(){
+		preview.src = reader.result;
+	}
+	
+	if(fileUser){
+		reader.readAsDataURL(fileUser); // Preview da imagem
+	}else{
+		preview.src= '';
+	}
+}

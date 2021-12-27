@@ -41,7 +41,7 @@
 													<div class="card-block">
 														<h4 class="sub-title">Cad. Usuário</h4>
 
-														<form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
+														<form class="form-material" enctype="multipart/form-data"" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
 															
 															<input type="hidden" name="acao" id="acao" value="">
 															
@@ -50,6 +50,14 @@
 																<span class="form-bar"></span>
 																<label class="float-label">ID:</label>
 															</div>
+															
+															<div class="form-group form-default input-group mb-4">
+																<div class="input-group-prepend">
+																	<img alt="Imagem user" id="fotoembase64" src="" width="70px">
+																</div>
+																<input type="file" id="fileFoto" name="fileFoto" accept="image/*" onchange="visualizarImg('fotoembase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left: 15px;">
+															</div>
+															
 
 															<div class="form-group form-default form-static-label">
 																<input type="text" name="nome" id="nome" class="form-control" required="required" value="${modelLogin.nome}">
