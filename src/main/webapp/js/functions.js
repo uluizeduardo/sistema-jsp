@@ -1,3 +1,25 @@
+// Função para pesquisar o Cep através do webservice viacep
+function pesquisaCep() {
+	var cep = $("#cep").val();
+
+	$.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+
+		if (!("erro" in dados)) {
+			//Atualiza os campos com os valores da consulta.
+			$("#cep").val(dados.cep);
+			$("#logradouro").val(dados.logradouro);
+			$("#bairro").val(dados.bairro);
+			$("#localidade").val(dados.localidade);
+			$("#uf").val(dados.uf);
+		} //end if.
+		else {
+			//CEP pesquisado não foi encontrado.
+			limpa_formulário_cep();
+			alert("CEP não encontrado.");
+		}
+	});
+}
+
 // Function to clear screen data
 function limparForm() {
 	var elementos = document.getElementById("formUser").elements;
@@ -59,7 +81,7 @@ function buscarUsuario() {
 				$('#tabelaResultados > tbody > tr').remove();
 
 				for (var p = 0; p < json.length; p++) {
-					$('#tabelaResultados > tbody').append('<tr> <td>'+json[p].id +'</td> <td>'+json[p].nome+'</td><td><button onclick="verEditar('+json[p].id+');" type="button" class="btn btn-info">Ver</button></td></tr>')
+					$('#tabelaResultados > tbody').append('<tr> <td>' + json[p].id + '</td> <td>' + json[p].nome + '</td><td><button onclick="verEditar(' + json[p].id + ');" type="button" class="btn btn-info">Ver</button></td></tr>')
 				}
 
 				document.getElementById('totalResultados').textContent = 'Resultados: ' + json.length;
@@ -73,25 +95,25 @@ function buscarUsuario() {
 }
 
 
-function verEditar(id){
+function verEditar(id) {
 	var urlAction = document.getElementById('formUser').action;
-	
+
 	window.location.href = urlAction + '?acao=buscarEditar&id=' + id;
 }
 
-function visualizarImg(fotoembase64, fileFoto){
-	
+function visualizarImg(fotoembase64, fileFoto) {
+
 	var preview = document.getElementById(fotoembase64);
 	var fileUser = document.getElementById(fileFoto).files[0];
 	var reader = new FileReader();
-	
-	reader.onloadend = function(){
+
+	reader.onloadend = function() {
 		preview.src = reader.result;
 	}
-	
-	if(fileUser){
+
+	if (fileUser) {
 		reader.readAsDataURL(fileUser); // Preview da imagem
-	}else{
-		preview.src= '';
+	} else {
+		preview.src = '';
 	}
 }
