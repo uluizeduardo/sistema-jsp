@@ -10,7 +10,15 @@
                       <div class="pcoded-inner-navbar main-menu">
                           <div class="">
                               <div class="main-menu-header">
+                              	<c:if test="${imageUser != '' && imageUser != null}">
+                                  <img class="img-80 img-radius" src="${imageUser}" alt="User-Profile-Image">
+                                </c:if>
+                                
+                                <c:if test="${imageUser == '' || imageUser == null}">
                                   <img class="img-80 img-radius" src="<%= request.getContextPath() %>/assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                </c:if>
+                                
+                                  
                                   <div class="user-details">
                                       <span id="more-details"><%= request.getSession().getAttribute("usuario") %><i class="fa fa-caret-down"></i></span>
                                   </div>
