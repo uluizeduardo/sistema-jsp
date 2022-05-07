@@ -35,4 +35,3 @@
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/assets/css/style.css">
   </head>
-    

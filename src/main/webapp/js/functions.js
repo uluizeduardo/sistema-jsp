@@ -11,12 +11,7 @@ function pesquisaCep() {
 			$("#bairro").val(dados.bairro);
 			$("#localidade").val(dados.localidade);
 			$("#uf").val(dados.uf);
-		} //end if.
-		else {
-			//CEP pesquisado não foi encontrado.
-			limpa_formulário_cep();
-			alert("CEP não encontrado.");
-		}
+		} 
 	});
 }
 
@@ -103,17 +98,17 @@ function verEditar(id) {
 
 function visualizarImg(fotoembase64, fileFoto) {
 
-	var preview = document.getElementById(fotoembase64);
-	var fileUser = document.getElementById(fileFoto).files[0];
-	var reader = new FileReader();
-
-	reader.onloadend = function() {
-		preview.src = reader.result;
-	}
-
-	if (fileUser) {
+		var preview = document.getElementById(fotoembase64);
+		var fileUser = document.getElementById(fileFoto).files[0];
+		var reader = new FileReader();
+	
+		reader.onloadend = function() {
+			preview.src = reader.result;
+		}
+	
+		if (fileUser) {
 		reader.readAsDataURL(fileUser); // Preview da imagem
-	} else {
-		preview.src = '';
+		} else {
+			preview.src = '';
+		}
 	}
-}
