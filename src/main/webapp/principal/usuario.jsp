@@ -4,8 +4,8 @@
 	
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 
 <jsp:include page="head.jsp"></jsp:include>
 
@@ -234,10 +234,6 @@
 		</div>
 	</div>
 
-	<!-- Required Jquery -->
-	<jsp:include page="javascriptfile.jsp"></jsp:include>
-	<script type="text/javascript" src="js/functions.js"></script>
-	
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModalUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
@@ -277,5 +273,7 @@
 	    </div>
 	  </div>
 	</div>
+	<!-- Required Jquery -->
+	<jsp:include page="javascriptfile.jsp"></jsp:include>
 </body>
 </html>
