@@ -266,6 +266,12 @@
 			  </tbody>
 			</table>
 	      </div>
+	      <nav aria-label="Page navigation example">
+	      	<ul class="pagination" id="ulPaginacaoUserAjax">
+	      	
+	      	</ul>
+	      </nav>
+	      
 	      <span id="totalResultados"></span>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
