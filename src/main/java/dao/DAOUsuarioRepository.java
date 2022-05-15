@@ -159,7 +159,7 @@ public class DAOUsuarioRepository {
 	
 	public int totalPagina(Long userLogado) throws Exception{
 		
-		String sql = "select count(1) as total from model_login where usuario_id = " + userLogado;
+		String sql = "select count(1) as total from model_login where useradmin is false and usuario_id = " + userLogado;
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
@@ -173,7 +173,7 @@ public class DAOUsuarioRepository {
 		Double pagina = cadastros / porPagina;
 		Double resto = pagina % 2;
 		
-		if (resto > 0 ) {
+		if (resto > 0) {
 			pagina++;
 		}
 		
