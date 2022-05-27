@@ -33,11 +33,12 @@ public class DAOTelefoneRepository {
 	}
 
 	// Método responsável por deletar dados do telefone
-	public void deleteTelecone(Long id) throws Exception {
-		String sql = "delete from telefone where id = ? and useradmin is false;";
+	public void deleteTelecone(Long idTelefone, Long userPai) throws Exception {
+		String sql = "delete from telefone where id = ? and usuario_pai_id = ?;";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		
-		preparedStatement.setLong(1, id);
+		preparedStatement.setLong(1, idTelefone);
+		preparedStatement.setLong(2, userPai);
 		preparedStatement.executeUpdate();
 		
 		connection.commit();
@@ -47,7 +48,7 @@ public class DAOTelefoneRepository {
 		
 		List<ModelTelefone> telefones = new ArrayList<ModelTelefone>();
 		
-		String sql = "select * from telefone where usuario_pai_id = ?;";
+		String sql = "select * from telefone where usuario_pai_id = ?";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setLong(1, userPai);
@@ -62,7 +63,9 @@ public class DAOTelefoneRepository {
 			modelTelefone.setNumero(resultado.getString("numero"));
 			modelTelefone.setUsuario_cad_id(daoUsuarioRepository.consultarUsuarioPorId(resultado.getLong("usuario_cad_id")));
 			modelTelefone.setUsuario_pai_id(daoUsuarioRepository.consultarUsuarioPorId(resultado.getLong("usuario_pai_id")));
+			
+			telefones.add(modelTelefone);
 		}
-		return null;
+		return telefones;
 	}
 }
