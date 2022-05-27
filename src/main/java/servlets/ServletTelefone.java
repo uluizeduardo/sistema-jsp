@@ -27,10 +27,36 @@ public class ServletTelefone extends ServletGenericUtil {
 		try {
 
 			String iduser = request.getParameter("iduser");
+			String acao = request.getParameter("acao");
+			
+			if (acao != null && !acao.isEmpty() && acao.equals("excluir")) {
+
+				String userPai = request.getParameter("userPai");
+
+				String idTelefone = request.getParameter("idTelefone");
+
+				telefoneRepository.deleteTelecone(Long.parseLong(idTelefone), Long.parseLong(userPai));
+				
+				ModelLogin modelLogin = usuarioRepository.consultarUsuarioPorId(Long.parseLong(userPai));
+
+				List<ModelTelefone> modelTelefones = telefoneRepository.listarTelefones((modelLogin.getId()));
+				request.setAttribute("modelTelefones", modelTelefones);
+
+				request.setAttribute("msg", "Telefone excluido com sucesso !");
+				request.setAttribute("modelLogin", modelLogin);
+				request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
+				
+				return;
+
+			}
 
 			if (iduser != null && !iduser.isEmpty()) {
 
 				ModelLogin modelLogin = usuarioRepository.consultarUsuarioPorId(Long.parseLong(iduser));
+				
+				List<ModelTelefone> modelTelefones = telefoneRepository.listarTelefones((modelLogin.getId()));	 
+				request.setAttribute("modelTelefones", modelTelefones);
+				
 				request.setAttribute("modelLogin", modelLogin);
 				request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
 
@@ -48,17 +74,23 @@ public class ServletTelefone extends ServletGenericUtil {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			String usuario_pai_id = request.getParameter("id");
+			String userPai = request.getParameter("iduser");
 			String numero = request.getParameter("numero");
 			
 			ModelTelefone modelTelefone = new ModelTelefone();
 			
 			modelTelefone.setNumero(numero);
-			modelTelefone.setUsuario_pai_id(usuarioRepository.consultarUsuarioPorId(Long.parseLong(usuario_pai_id)));
+			modelTelefone.setUsuario_pai_id(usuarioRepository.consultarUsuarioPorId(Long.parseLong(userPai)));
 			modelTelefone.setUsuario_cad_id(super.getUsuarioLogadoObject(request));
 			
 			telefoneRepository.gravarTelefone(modelTelefone);
 			
+			List<ModelTelefone> modelTelefones = telefoneRepository.listarTelefones(Long.parseLong(userPai));
+			
+			ModelLogin modelLogin = usuarioRepository.consultarUsuarioPorId(Long.parseLong(userPai));
+			
+			request.setAttribute("modelLogin", modelLogin);
+			request.setAttribute("modelTelefones", modelTelefones);
 			request.setAttribute("msg", "Salvo com sucesso!");
 			request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
 

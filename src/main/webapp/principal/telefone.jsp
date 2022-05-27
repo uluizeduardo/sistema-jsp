@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +43,7 @@
 														<form class="form-material" action="<%= request.getContextPath() %>/ServletTelefone" method="post" id="formFone">
 															
 															<div class="form-group form-default form-static-label">
-																<input type="text" name="id" id="id" class="form-control" readonly="readonly" value="${modelLogin.id}">
+																<input type="text" name="iduser" id="iduser" class="form-control" readonly="readonly" value="${modelLogin.id}">
 																<span class="form-bar"></span>
 																<label class="float-label">ID User:</label>
 															</div>
@@ -57,7 +59,7 @@
 															</div>
 															
 															<button class="btn btn-success waves-effect waves-light">Salvar</button>
-															
+															<a class="btn btn-primary" href="<%= request.getContextPath() %>/ServletUsuarioController?acao=buscarEditar&id=${modelLogin.id}">Voltar</a>
 														</form>
 													</div>
 													
@@ -66,7 +68,27 @@
 										</div>
 									<span id="msg">${msg}</span>
                                 </div> <!-- Page-body end -->
-                                <div id="styleSelector"> </div>
+                                
+                                <div style="height: 300px; overflow: scroll;">
+									<table class="table" id="tabelaresultadosview">
+										<thead>
+											<tr>
+												<th scope="col">Id</th>
+												<th scope="col">Número</th>
+												<th scope="col">Ação</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${modelTelefones}" var="f">
+												<tr>
+													<td><c:out value="${f.id}"></c:out></td>
+													<td><c:out value="${f.numero}"></c:out></td>
+													<td><a class="btn btn-danger" href="<%= request.getContextPath() %>/ServletTelefone?acao=excluir&idTelefone=${f.id}&userPai=${modelLogin.id}">Excluir</a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
                             </div>
                         </div>
                     </div>
