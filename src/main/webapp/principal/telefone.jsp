@@ -53,7 +53,7 @@
 																<label class="float-label">Nome:</label>
 															</div>
 															<div class="form-group form-default form-static-label">
-																<input type="text" name="numero" id="numero" class="form-control" required="required">
+																<input type="text" name="numero" id="numero" class="form-control" required="required" onfocus="validarNumericos()">
 																<span class="form-bar"></span>
 																<label class="float-label">Número:</label>
 															</div>
