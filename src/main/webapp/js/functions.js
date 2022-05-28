@@ -156,3 +156,16 @@ function visualizarImg(fotoembase64, fileFoto) {
 			preview.src = '';
 		}
 	}
+	
+// Função aônima para Validar campos númericos
+(function(){
+	
+	$('#numero').keypress(function (event){
+		return /\d/.test(String.fromCharCode(event.keyCode));
+	});
+	
+	$('#cep').keypress(function (event){
+		return /\d/.test(String.fromCharCode(event.keyCode));
+	});
+	
+})()
