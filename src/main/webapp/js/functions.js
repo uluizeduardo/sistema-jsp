@@ -159,9 +159,6 @@ function visualizarImg(fotoembase64, fileFoto) {
 	
 // Função aônima para Validar campos númericos
 (function(){
-	const arr = [document.getElementById('#numero'), document.getElementById('#cep')]
-	console.log(arr);
-	
 	
 	$('#numero').keypress(function (event){
 		return /\d/.test(String.fromCharCode(event.keyCode));
