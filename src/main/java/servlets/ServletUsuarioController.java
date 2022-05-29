@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
@@ -160,6 +162,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
+			String dataNascimento = request.getParameter("dataNascimento");
 			String email = request.getParameter("email");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
@@ -177,6 +180,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 			modelLogin.setNome(nome);
+			modelLogin.setDataNascimento(Date.valueOf(dataNascimento));
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
