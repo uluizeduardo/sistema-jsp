@@ -72,6 +72,12 @@
 																<span class="form-bar"></span>
 																<label class="float-label">Nome:</label>
 															</div>
+															
+															<div class="form-group form-default form-static-label">
+																 <input type="date" name="dataNascimento" id="dataNascimento" class="form-control" required="required" value="${modelLogin.dataNascimento}">
+																 <span class="form-bar"></span>
+																 <label class="float-label">Data Nascimento</label>
+															</div>
 
 															<div class="form-group form-default form-static-label">
 																 <input type="email" name="email" id="email" class="form-control" required="required" autocomplete="off" value="${modelLogin.email}">

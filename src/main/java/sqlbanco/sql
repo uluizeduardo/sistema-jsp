@@ -58,3 +58,8 @@ CREATE TABLE TELEFONE (
 	constraint usuario_cad_id foreign key (usuario_cad_id) references model_login (id)
 	
 	)
+	
+------------------------------- // -----------------------	
+Inserir coluna datanascimento na tabela:
+
+sql: alter table model_login add column datanascimento date;
