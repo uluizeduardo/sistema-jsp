@@ -110,7 +110,7 @@ public class DAOUsuarioRepository {
 		
 		List<ModelLogin> listaDeRetorno = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by nome offset "+offset+" limit 5";
+		String sql = "select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by id desc offset "+offset+" limit 5";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
@@ -136,7 +136,7 @@ public class DAOUsuarioRepository {
 
 		List<ModelLogin> listaDeRetorno = new ArrayList<ModelLogin>();
 
-		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? offset "+offset+" limit 5";
+		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? order by id desc offset "+offset+" limit 5";
 
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1,  "%" + nome + "%");
@@ -186,7 +186,7 @@ public class DAOUsuarioRepository {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		String sql ="select * from model_login where useradmin is false and usuario_id = " + userLogado + " limit 5 ";
+		String sql ="select * from model_login where useradmin is false and usuario_id = " + userLogado + " order by id desc limit 5 ";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		
 		ResultSet resultado = preparedStatement.executeQuery();
@@ -269,7 +269,7 @@ public class DAOUsuarioRepository {
 		
 		List<ModelLogin> lista = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? limit 5";
+		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? order by id desc limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		statement.setString(1, "%" + nome + "%");
@@ -331,7 +331,7 @@ public class DAOUsuarioRepository {
 
 		ModelLogin modelLogin = new ModelLogin();
 
-		String sql = "select * from model_login where upper(login) = upper('"+login+"') and useradmin is false and usuario_id = " + userLogado;
+		String sql = "select * from model_login where upper(login) = upper('"+login+"') and useradmin is false and usuario_id = " + userLogado + " order by id desc";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -401,7 +401,7 @@ public class DAOUsuarioRepository {
 	public ModelLogin consultarUsuarioPorId(Long id) throws Exception{
 		ModelLogin modelLogin = new ModelLogin();
 		
-		String sql = "select * from model_login where id = ? and useradmin is false;";
+		String sql = "select * from model_login where id = ? and useradmin is false order by id desc;";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
