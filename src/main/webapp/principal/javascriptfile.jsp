@@ -32,3 +32,5 @@
     <script type="text/javascript" src="<%= request.getContextPath() %>/assets/js/script.js"></script>
     <!-- functions js -->
     <script type="text/javascript" src="<%= request.getContextPath() %>/js/functions.js"></script>
+	<!-- jquery.maskMoney.min -->
+	<script type="text/javascript" src="<%= request.getContextPath() %>/assets/js/jquery.maskMoney.min.js"></script>

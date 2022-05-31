@@ -63,3 +63,9 @@ CREATE TABLE TELEFONE (
 Inserir coluna datanascimento na tabela:
 
 sql: alter table model_login add column datanascimento date;
+
+
+------------------------------- // -----------------------	
+Inserir coluna rendamensal na tabela:
+
+sql: alter table model_login add column rendamensal numeric;

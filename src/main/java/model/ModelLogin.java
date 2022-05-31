@@ -23,6 +23,7 @@ public class ModelLogin implements Serializable {
 	private String localidade;
 	private String uf;
 	private String numero;
+	private Double rendaMensal;
 	
 	private boolean useradmin;
 	private String perfil;
@@ -156,6 +157,14 @@ public class ModelLogin implements Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+	
+	public Double getRendaMensal() {
+		return rendaMensal;
+	}
+	
+	public void setRendaMensal(Double rendaMensal) {
+		this.rendaMensal = rendaMensal;
 	}
 
 	public boolean getUseradmin() {
