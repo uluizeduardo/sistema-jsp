@@ -161,6 +161,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
 			String dataNascimento = request.getParameter("dataNascimento");
+			String rendaMensal = request.getParameter("rendaMensal");
 			String email = request.getParameter("email");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
@@ -173,12 +174,16 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String localidade = request.getParameter("localidade");
 			String uf = request.getParameter("uf");
 			String numero = request.getParameter("numero");
-
+			
+			
+			rendaMensal = rendaMensal.replace("R$ ", "").replaceAll("\\.", "").replaceAll("\\,", ".");
+			
 			ModelLogin modelLogin = new ModelLogin();
 
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 			modelLogin.setNome(nome);
 			modelLogin.setDataNascimento(Date.valueOf(dataNascimento));
+			modelLogin.setRendaMensal(Double.parseDouble(rendaMensal));
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);

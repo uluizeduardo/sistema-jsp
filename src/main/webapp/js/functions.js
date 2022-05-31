@@ -169,3 +169,22 @@ function visualizarImg(fotoembase64, fileFoto) {
 	});
 	
 })()
+
+// MaskMoney jquery
+ $(document).ready(function() {
+    $('#rendaMensal').maskMoney({prefix:'R$ ', thousands:'.', decimal:','});
+    
+    //Formatando os valores
+    const formatter = new Intl.NumberFormat('pt-BR', {
+		currency : 'BRL',
+		minimumFractionDigits : 2
+		})
+	
+	//Passa para a tela o valor formatado
+	$("#rendaMensal").val(formatter.format($("#rendaMensal").val()));
+	
+	//Manda o foco para o campo rendaMensal
+	$("#rendaMensal").focus();
+
+  })
+  
