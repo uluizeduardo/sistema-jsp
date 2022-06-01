@@ -77,13 +77,21 @@ public class ServletTelefone extends ServletGenericUtil {
 			String userPai = request.getParameter("iduser");
 			String numero = request.getParameter("numero");
 			
-			ModelTelefone modelTelefone = new ModelTelefone();
-			
-			modelTelefone.setNumero(numero);
-			modelTelefone.setUsuario_pai_id(usuarioRepository.consultarUsuarioPorId(Long.parseLong(userPai)));
-			modelTelefone.setUsuario_cad_id(super.getUsuarioLogadoObject(request));
-			
-			telefoneRepository.gravarTelefone(modelTelefone);
+			if (!telefoneRepository.validaTelefone(numero, Long.valueOf(userPai))) {
+				
+				ModelTelefone modelTelefone = new ModelTelefone();
+				
+				modelTelefone.setNumero(numero);
+				modelTelefone.setUsuario_pai_id(usuarioRepository.consultarUsuarioPorId(Long.parseLong(userPai)));
+				modelTelefone.setUsuario_cad_id(super.getUsuarioLogadoObject(request));
+				
+				telefoneRepository.gravarTelefone(modelTelefone);
+				
+				request.setAttribute("msg", "Salvo com sucesso!");
+
+			}else {
+				request.setAttribute("msg", "O telefone informado já existe!");
+			}
 			
 			List<ModelTelefone> modelTelefones = telefoneRepository.listarTelefones(Long.parseLong(userPai));
 			
@@ -91,9 +99,8 @@ public class ServletTelefone extends ServletGenericUtil {
 			
 			request.setAttribute("modelLogin", modelLogin);
 			request.setAttribute("modelTelefones", modelTelefones);
-			request.setAttribute("msg", "Salvo com sucesso!");
 			request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

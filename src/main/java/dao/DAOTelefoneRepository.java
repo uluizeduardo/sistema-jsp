@@ -68,4 +68,18 @@ public class DAOTelefoneRepository {
 		}
 		return telefones;
 	}
+	
+	public boolean validaTelefone(String telefone, Long idUsuario) throws Exception {
+		String sql = "select count(1) > 0  as existe from telefone where usuario_pai_id = ? and numero = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		
+		preparedStatement.setLong(1, idUsuario);
+		preparedStatement.setString(2, telefone);
+		
+		ResultSet resultado = preparedStatement.executeQuery();
+		
+		resultado.next();
+		
+		return resultado.getBoolean("existe");
+	}
 }
