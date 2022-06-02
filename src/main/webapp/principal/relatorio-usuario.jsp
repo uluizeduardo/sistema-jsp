@@ -41,15 +41,15 @@
 														<form class="form-material" action="<%= request.getContextPath() %>/ServletRelatorioController?acao=imprimirRelatorioUsuario" method="post" id="formUser">
 															<div class="row">
 																<div class="col-6 col-md-4">
-																	<input type="date" class="form-control"
-																		id="dataInicial" placeholder="Data Inicial">
+																	<label>Data Inicial</label>
+																	<input type="date" class="form-control" id="dataInicial" name="dataInicial" placeholder="Data Inicial" value="${dataInicial}">
 																</div>
 																<div class="col-6 col-md-4">
-																	<input type="date" class="form-control"
-																		id="dataFinal" placeholder="Data Final">
+																	<label>Data Final</label>
+																	<input type="date" class="form-control" id="dataFinal" name="dataFinal" placeholder="Data Final" value="${dataFinal}">
 																</div>
-																<div class="col-6 col-md-4">
-																	<button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
+																<div class="col align-self-center">
+																	<button type="submit" class="btn btn-primary">Pesquisar</button>
 																</div>
 															</div>
 														</form>
@@ -57,7 +57,7 @@
 												</div>
 											</div>
                                     <!-- Page-body end -->
-                                </div>
+                                	</div>
                                 <div id="styleSelector"> </div>
                             </div>
                         </div>
