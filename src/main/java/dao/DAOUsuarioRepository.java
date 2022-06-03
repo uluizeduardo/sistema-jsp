@@ -327,6 +327,45 @@ public class DAOUsuarioRepository {
 		return modelLogin;
 	}
 	
+	public List<ModelLogin> consultarUsuarioRelatorio(Long usuarioLogado) throws Exception {
+
+		List<ModelLogin> listaUsuarios = new ArrayList<ModelLogin>();
+
+		String sql = "select * from model_login where usuario_id = ('"+usuarioLogado+"') and useradmin is false";
+
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+		ResultSet resultado = preparedStatement.executeQuery();
+
+		while (resultado.next()) {
+			
+			ModelLogin modelLogin = new ModelLogin();
+
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setDataNascimento(resultado.getDate("dataNascimento"));
+			modelLogin.setRendaMensal(resultado.getDouble("rendamensal"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
+			modelLogin.setFotouser(resultado.getString("fotouser"));
+			modelLogin.setExtensaofotouser(resultado.getString("extensaofotouser"));
+			
+			modelLogin.setCep(resultado.getString("cep"));
+			modelLogin.setLogradouro(resultado.getString("logradouro"));
+			modelLogin.setBairro(resultado.getString("bairro"));
+			modelLogin.setLocalidade(resultado.getString("localidade"));
+			modelLogin.setUf(resultado.getString("uf"));
+			modelLogin.setNumero(resultado.getString("numero"));
+			
+			listaUsuarios.add(modelLogin);
+		}
+
+		return listaUsuarios;
+	}
+	
 	public ModelLogin consultarUsuario(String login, Long userLogado) throws Exception {
 
 		ModelLogin modelLogin = new ModelLogin();

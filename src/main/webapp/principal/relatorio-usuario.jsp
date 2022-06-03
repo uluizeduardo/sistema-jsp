@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +55,25 @@
 																</div>
 															</div>
 														</form>
+														<!-- Tabela com o resultado da pesquisa -->
+														<div style="height: 400px; overflow: scroll;">
+														<table class="table" id="tabelaresultadosview">
+															<thead>
+																<tr>
+																	<th scope="col">Id</th>
+																	<th scope="col">Nome</th>
+																	<th scope="col">Telefone</th>
+																</tr>
+															</thead>
+															<tbody>
+																<c:forEach items="${listaUsuarios}" var="lista">
+																	<tr>
+																		<td><c:out value="${lista.id}"></c:out></td>
+																		<td><c:out value="${lista.nome}"></c:out></td>
+																	</tr>
+																</c:forEach>
+															</tbody>
+														</table>
 													</div>
 												</div>
 											</div>

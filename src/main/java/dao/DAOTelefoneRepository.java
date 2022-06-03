@@ -69,6 +69,31 @@ public class DAOTelefoneRepository {
 		return telefones;
 	}
 	
+public List<ModelTelefone> listarTelefonesPorID(Long idUsuario) throws Exception{
+		
+		List<ModelTelefone> telefones = new ArrayList<ModelTelefone>();
+		
+		String sql = "select * from telefone where usuario_pai_id = ?";
+		
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setLong(1, idUsuario);
+		
+		ResultSet resultado = preparedStatement.executeQuery();
+		
+		while(resultado.next()) {
+			
+			ModelTelefone modelTelefone = new ModelTelefone();
+			
+			modelTelefone.setId(resultado.getLong("id"));
+			modelTelefone.setNumero(resultado.getString("numero"));
+			modelTelefone.setUsuario_cad_id(daoUsuarioRepository.consultarUsuarioPorId(resultado.getLong("usuario_cad_id")));
+			modelTelefone.setUsuario_pai_id(daoUsuarioRepository.consultarUsuarioPorId(resultado.getLong("usuario_pai_id")));
+			
+			telefones.add(modelTelefone);
+		}
+		return telefones;
+	}
+	
 	public boolean validaTelefone(String telefone, Long idUsuario) throws Exception {
 		String sql = "select count(1) > 0  as existe from telefone where usuario_pai_id = ? and numero = ?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
